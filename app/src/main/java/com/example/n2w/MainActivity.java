@@ -8,11 +8,21 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "MainActivity";
+    // Translator instance
     private Translator translator;
+    // Input text field
+    private EditText editText;
+    // Button for random pick
+    private Button randomPick;
+    // Button for custom pick
+    private Button customPick;
+    // Progress bar
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,8 +31,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Create the translator
         translator = new Translator(MainActivity.this);
 
-        Button randomPick = (Button) findViewById(R.id.button_1);
-        Button customPick = (Button) findViewById(R.id.button_2);
+        editText = findViewById(R.id.input);
+        randomPick = findViewById(R.id.button_1);
+        customPick = findViewById(R.id.button_2);
+        progressBar = findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.GONE);
 
         randomPick.setOnClickListener(this);
         customPick.setOnClickListener(this);
@@ -31,19 +44,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         Intent intent;
-        EditText editText = findViewById(R.id.input);
         String inputText = editText.getText().toString();
 
         Log.d(TAG, "onClick: " + inputText);
-        // 数字空格小数点
-        if(inputText.matches("[\\d\\s\\.]+")){
+        // digits, space and dot
+        if (inputText.matches("[\\d\\s.]+")) {
             switch (v.getId()) {
                 case R.id.button_1:
+                    progressBar.setVisibility(View.VISIBLE);
+                    String result = translator.translate(inputText);
+
+                    // Create a random pick activity and transfer data
                     intent = new Intent(MainActivity.this, RandomPickActivity.class);
+                    intent.putExtra("Result", result);
+
+                    progressBar.setVisibility(View.GONE);
                     startActivity(intent);
+
                     break;
                 case R.id.button_2:
+                    progressBar.setVisibility(View.VISIBLE);
+
                     intent = new Intent(MainActivity.this, CustomPickActivity.class);
+
+                    progressBar.setVisibility(View.GONE);
                     startActivity(intent);
                     break;
                 default:
@@ -52,15 +76,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             Toast.makeText(this, "Please input digits", Toast.LENGTH_SHORT).show();
         }
-
-
     }
 }
-/**
- * ProgressBar 或者 progressDialog
- * 对话风格的<activity	android:name=".DialogActivity"				android:theme="@style/Theme.AppCompat.Dialog">
- * 两次退出：退出提示
- * ListView + 点击事件
- * <p>
- * 先把设计思路写报告，再写代码
- **/

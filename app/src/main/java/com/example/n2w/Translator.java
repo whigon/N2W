@@ -15,9 +15,8 @@ import java.util.ArrayList;
 import java.util.Set;
 
 public class Translator {
-    //
     private static final String TAG = "Debug";
-    //
+    // Application context(MainActivity)
     private Context context;
     // Set of numbers
     private Set<String> keySet;
@@ -47,6 +46,7 @@ public class Translator {
         numbers = new ArrayList<>();
         words = new ArrayList<>();
 
+        digits = digits.replaceAll("\\s", "");
         splitNumber(digits);
 
         return getResult();
@@ -58,13 +58,12 @@ public class Translator {
      * @return a set of words
      */
     public String getResult() {
-        String str = " ";
+        StringBuilder str = new StringBuilder(" ");
 
         for (int i = 0; i < words.size(); i++) {
-            str += randomlyPick(words.get(i)) + " ";
+            str.append(randomlyPick(words.get(i))).append(" ");
         }
-
-        return str;
+        return str.toString();
     }
 
     /**
@@ -105,8 +104,6 @@ public class Translator {
      */
     public String randomlyPick(JSONArray array) {
         int random = (int) (Math.random() * array.size());
-//        System.out.println(array);
-//        System.out.println(random);
 
         return array.getString(random);
     }
@@ -144,7 +141,7 @@ public class Translator {
      * Load the data file.
      */
     private void loadFile() {
-        // Access data in the res/raw directory
+        // Access data in the res/raw directory, using context
         InputStream is = context.getResources().openRawResource(R.raw.data);
         String data = "";
         String str;
@@ -152,7 +149,6 @@ public class Translator {
         try {
             // Read data
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-
             while ((str = reader.readLine()) != null) {
                 data += str;
             }
