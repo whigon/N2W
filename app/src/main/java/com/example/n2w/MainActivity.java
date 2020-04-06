@@ -49,10 +49,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.d(TAG, "onClick: " + inputText);
         // digits, space and dot
         if (inputText.matches("[\\d\\s.]+")) {
+            // Process translation
+            translator.translate(inputText);
             switch (v.getId()) {
                 case R.id.button_1:
                     progressBar.setVisibility(View.VISIBLE);
-                    String result = translator.translate(inputText);
+                    String result = translator.getResult();
 
                     // Create a random pick activity and transfer data
                     intent = new Intent(MainActivity.this, RandomPickActivity.class);

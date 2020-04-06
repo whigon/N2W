@@ -39,17 +39,15 @@ public class Translator {
      * Translate digits into a set of words.
      *
      * @param digits input
-     * @return a set of words
      */
-    public String translate(String digits) {
+    public void translate(String digits) {
         // New a space
         numbers = new ArrayList<>();
         words = new ArrayList<>();
 
         digits = digits.replaceAll("\\s", "");
-        splitNumber(digits);
-
-        return getResult();
+        // Split number and translate them
+        translateNumber(digits);
     }
 
     /**
@@ -67,11 +65,11 @@ public class Translator {
     }
 
     /**
-     * Split digits into numbers and store the corresponding words.
+     * Split digits into numbers, translate them and store the corresponding words.
      *
      * @param input digits
      */
-    private void splitNumber(String input) {
+    private void translateNumber(String input) {
         int length = input.length();
         String subNumber;
 
@@ -86,7 +84,7 @@ public class Translator {
                     // Store corresponding words
                     words.add((JSONArray) (map.get(subNumber)));
                     // Find next
-                    splitNumber(input.substring(i));
+                    translateNumber(input.substring(i));
 
                     break;
                 }
@@ -102,7 +100,7 @@ public class Translator {
      * @param array A set of words that can represent a number
      * @return A randomly-picked word
      */
-    public String randomlyPick(JSONArray array) {
+    private String randomlyPick(JSONArray array) {
         int random = (int) (Math.random() * array.size());
 
         return array.getString(random);
@@ -143,18 +141,18 @@ public class Translator {
     private void loadFile() {
         // Access data in the res/raw directory, using context
         InputStream is = context.getResources().openRawResource(R.raw.data);
-        String data = "";
+        StringBuilder data = new StringBuilder();
         String str;
 
         try {
             // Read data
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
             while ((str = reader.readLine()) != null) {
-                data += str;
+                data.append(str);
             }
 
             // Store the map
-            map = (JSONObject) JSON.parse(data);
+            map = (JSONObject) JSON.parse(data.toString());
             // Store the key set
             keySet = map.keySet();
             Log.d(TAG, "loadFile: Success");
