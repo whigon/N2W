@@ -26,7 +26,7 @@ public class CustomPickActivity extends AppCompatActivity implements AdapterView
 
         Intent intent = getIntent();
         numbers = intent.getStringArrayListExtra("Numbers");
-        wordSet = (ArrayList<ArrayList<String>>) intent.getSerializableExtra("Words");
+        wordSet = (ArrayList<ArrayList<String>>) intent.getSerializableExtra("WordSet");
 
         // Display data on the screen
         String[] items = numbers.toArray(new String[0]);

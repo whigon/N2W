@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     // Custom pick
                     intent = new Intent(MainActivity.this, CustomPickActivity.class);
                     intent.putStringArrayListExtra("Numbers", translator.getNumbers());
-                    intent.putExtra("Words", translator.getWords());
+                    intent.putExtra("WordSet", translator.getWordSet());
 
                     progressBar.setVisibility(View.GONE);
                     startActivity(intent);
