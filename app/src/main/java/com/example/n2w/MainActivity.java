@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -11,16 +12,14 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "MainActivity";
     // Translator instance
     private Translator translator;
     // Input text field
     private EditText editText;
-    // Button for random pick
-    private Button randomPick;
-    // Button for custom pick
-    private Button customPick;
     // Progress bar
     private ProgressBar progressBar;
 
@@ -28,16 +27,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         // Create the translator
         translator = new Translator(MainActivity.this);
-
         editText = findViewById(R.id.input);
-        randomPick = findViewById(R.id.button_1);
-        customPick = findViewById(R.id.button_2);
         progressBar = findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
 
+        // Button for random pick
+        Button randomPick = findViewById(R.id.button_1);
         randomPick.setOnClickListener(this);
+        // Button for custom pick
+        Button customPick = findViewById(R.id.button_2);
         customPick.setOnClickListener(this);
     }
 
@@ -66,8 +67,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 case R.id.button_2:
                     progressBar.setVisibility(View.VISIBLE);
+                    ArrayList<String> numbers = translator.getNumbers();
+
 
                     intent = new Intent(MainActivity.this, CustomPickActivity.class);
+                    intent.putStringArrayListExtra("Numbers", numbers);
+                    intent.putExtra("Words", translator.getWords());
 
                     progressBar.setVisibility(View.GONE);
                     startActivity(intent);
