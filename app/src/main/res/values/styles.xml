@@ -14,7 +14,7 @@
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:backgroundDimEnabled">true</item>
-        <item name="android:windowBackground">#646464</item> <!--R:100 B:100 G:100-->
+        <item name="android:windowBackground">#00646464</item> <!--R:100 B:100 G:100-->
     </style>
 
 </resources>

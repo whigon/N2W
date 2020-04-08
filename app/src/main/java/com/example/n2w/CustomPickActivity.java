@@ -29,8 +29,8 @@ public class CustomPickActivity extends AppCompatActivity implements AdapterView
         wordSet = (ArrayList<ArrayList<String>>) intent.getSerializableExtra("Words");
 
         // Display data on the screen
-        String[] showData = numbers.toArray(new String[numbers.size()]);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(CustomPickActivity.this, android.R.layout.simple_list_item_1, showData);
+        String[] items = numbers.toArray(new String[0]);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(CustomPickActivity.this, android.R.layout.simple_list_item_1, items);
         ListView listView = findViewById(R.id.list_view);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
@@ -38,11 +38,11 @@ public class CustomPickActivity extends AppCompatActivity implements AdapterView
 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // Get words corresponding to the selected number
-        ArrayList<String> words = wordSet.get(position);
-        String result = words.toString();
+        String result = wordSet.get(position).toString();
         Log.d(TAG, "onItemClick: " + result);
 
-        Intent intent = new Intent(CustomPickActivity.this, ShowResultActivity.class);
+        // Display result
+        Intent intent = new Intent(CustomPickActivity.this, DisplayResultActivity.class);
         intent.putExtra("Result", result);
         startActivity(intent);
     }

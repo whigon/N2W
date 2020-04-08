@@ -10,12 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ShowResultActivity"
+            android:name=".DisplayResultActivity"
             android:theme="@style/NoTitleDialog" />
         <activity android:name=".CustomPickActivity" />
-        <activity
-            android:name=".RandomPickActivity"
-            android:theme="@style/NoTitleDialog" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
