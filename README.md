@@ -1,2 +1,2 @@
 # N2W
-An application for memorying digits
+An application for memorizing digits
