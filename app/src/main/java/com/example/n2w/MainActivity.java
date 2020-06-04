@@ -37,6 +37,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Button for custom pick
         Button customPick = findViewById(R.id.button_2);
         customPick.setOnClickListener(this);
+        // Button for all combinations
+        Button allCombinations = findViewById(R.id.button_3);
+        allCombinations.setOnClickListener(this);
     }
 
     @Override
@@ -72,6 +75,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     progressBar.setVisibility(View.GONE);
                     startActivity(intent);
+
+                    break;
+                case R.id.button_3:
+                    progressBar.setVisibility(View.VISIBLE);
+
+                    // All combinations
+                    intent = new Intent(MainActivity.this, AllCombinationActivity.class);
+                    intent.putStringArrayListExtra("Combinations", translator.getAllCombinations());
+
+                    progressBar.setVisibility(View.GONE);
+                    startActivity(intent);
+
                     break;
                 default:
                     break;

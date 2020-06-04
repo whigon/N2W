@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".AllCombinationActivity"></activity>
         <activity
             android:name=".DisplayResultActivity"
             android:theme="@style/NoTitleDialog" />

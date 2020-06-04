@@ -157,4 +157,41 @@ public class Translator {
             System.out.println(e);
         }
     }
+
+    /**
+     * @return
+     */
+    public ArrayList<String> getAllCombinations() {
+        return combineWords(this.wordSet, 0, " ", new ArrayList<String>());
+    }
+
+    /**
+     * @param list
+     * @param index
+     * @param sentence
+     * @param result
+     * @return
+     */
+    private ArrayList<String> combineWords(ArrayList<ArrayList<String>> list, int index, String sentence, ArrayList<String> result) {
+        int size = list.size();
+
+        for (int i = 0; i < size; i++) {
+            if (i == index) {
+                // Get the current array
+                ArrayList<String> arr = list.get(index);
+                // Iterate elements
+                for (String str : arr) {
+                    str = sentence + str + " ";
+
+                    // When it is the last array, the recursive call ends
+                    if (i < size - 1)
+                        combineWords(list, index + 1, str, result);
+                    else
+                        result.add(str);
+                }
+            }
+        }
+
+        return result;
+    }
 }
